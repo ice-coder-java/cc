@@ -169,7 +169,7 @@ claude mcp add firecrawl --url https://mcp.firecrawl.dev/your-api-key/v2/mcp
 claude mcp add firecrawl -e FIRECRAWL_API_KEY=your-api-key -- npx -y firecrawl-mcp
 ```
 
-## 5.5 CLAUDE.md 中的 Firecrawl 调用规则
+### 5.5 CLAUDE.md 中的 Firecrawl 调用规则
 
 为了让 Claude Code 在网页搜索、网页抓取、网站爬取和内容提取任务中优先使用 Firecrawl，可以在 `CLAUDE.md` 文件中加入以下规则：
 
