@@ -74,14 +74,30 @@ CC-Switch-v{version}-Windows.msi
 项目根目录/.claude/CLAUDE.md
 ```
 
-## 4. Context7 MCP
+## 4. MCP 安装作用域说明
 
-### 4.1 项目与官网
+在安装 MCP Server 时，需要注意它的安装作用域。Claude Code 支持 `local`、`project` 和 `user` 三种作用域，用来决定 MCP 配置在哪些项目中生效。官方文档中说明，`local` 是默认作用域，仅当前项目可用；`project` 会写入项目根目录的 `.mcp.json`，适合团队共享；`user` 会作为用户级配置，在所有项目中可用。  
+
+| 作用域       | 生效范围      | 是否适合提交 Git | 适合场景                         |
+| --------- | --------- | ---------- | ---------------------------- |
+| `local`   | 当前项目，个人可用 | 否          | 临时测试、个人项目配置                  |
+| `project` | 当前项目，团队共享 | 是          | 团队统一 MCP 配置                  |
+| `user`    | 所有项目，个人可用 | 否          | Context7、Firecrawl 等个人常用 MCP |
+
+一般情况下：
+
+* 个人常用 MCP，例如 Context7、Firecrawl，建议使用 `--scope user`。
+* 某个项目专用 MCP，建议使用默认的 `local`。
+* 团队共享 MCP，且不直接暴露密钥时，可以使用 `--scope project`。
+
+## 5. Context7 MCP
+
+### 5.1 项目与官网
 
 * GitHub：[https://github.com/upstash/context7](https://github.com/upstash/context7)
 * 官网：[https://context7.com/dashboard](https://context7.com/dashboard)
 
-### 4.2 工具作用
+### 5.2 工具作用
 
 Context7 是一个面向 AI 编程工具的技术文档 MCP。它可以让 Claude Code 在需要框架、库、API、依赖配置或版本差异信息时，直接查询最新文档和代码示例，减少模型依赖旧训练数据导致的错误。
 
@@ -93,7 +109,7 @@ Context7 是一个面向 AI 编程工具的技术文档 MCP。它可以让 Claud
 * 配置 SDK、插件、中间件。
 * 排查由于版本差异导致的问题。
 
-### 4.3 Claude Code 本地服务器连接
+### 5.3 Claude Code 本地服务器连接
 
 使用本地 `npx` 启动 Context7 MCP Server：
 
@@ -103,7 +119,7 @@ claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp --api-key Y
 
 将 `YOUR_API_KEY` 替换为 Context7 控制台中的 API Key。
 
-### 4.4 Claude Code 远程服务器连接
+### 5.4 Claude Code 远程服务器连接
 
 使用 Context7 远程 MCP 服务：
 
@@ -113,7 +129,7 @@ claude mcp add --scope user --header "CONTEXT7_API_KEY: YOUR_API_KEY" --transpor
 
 同样需要将 `YOUR_API_KEY` 替换为自己的 Context7 API Key。
 
-### 4.5 CLAUDE.md 中的 Context7 调用规则
+### 5.5 CLAUDE.md 中的 Context7 调用规则
 
 为了让 Claude Code 在涉及框架、依赖库、API 文档、代码生成、安装和配置步骤时主动调用 Context7，可以在全局或项目级 `CLAUDE.md` 文件中加入以下规则：
 
@@ -123,15 +139,15 @@ Always use the Context7 MCP server when needing library/API documentation, code 
 
 该规则来自 Context7 官方文档的最佳实践。
 
-## 5. Firecrawl MCP
+## 6. Firecrawl MCP
 
-### 5.1 项目与官网
+### 6.1 项目与官网
 
 * GitHub：[https://github.com/firecrawl/firecrawl](https://github.com/firecrawl/firecrawl)
 * 官网：[https://www.firecrawl.dev/app](https://www.firecrawl.dev/app)
 * Firecrawl MCP Server：[https://github.com/firecrawl/firecrawl-mcp-server](https://github.com/firecrawl/firecrawl-mcp-server)
 
-### 5.2 工具作用
+### 6.2 工具作用
 
 Firecrawl 是一个面向 AI Agent 的网页搜索、抓取、清洗和结构化提取工具。它可以把网页内容转成更适合大模型处理的 Markdown 或结构化数据。
 
@@ -151,7 +167,7 @@ Firecrawl 是一个面向 AI Agent 的网页搜索、抓取、清洗和结构化
 | Context7  | 查询框架、库、API 的最新技术文档      |
 | Firecrawl | 搜索网页、抓取网页正文、清洗网页内容、爬取网站 |
 
-### 5.3 Claude Code 远程托管方式
+### 6.3 Claude Code 远程托管方式
 
 Firecrawl 官方推荐使用 Remote hosted URL：
 
@@ -161,7 +177,7 @@ claude mcp add firecrawl --url https://mcp.firecrawl.dev/your-api-key/v2/mcp
 
 将 `your-api-key` 替换为 Firecrawl 控制台中的 API Key。
 
-### 5.4 Claude Code 本地 npx 方式
+### 6.4 Claude Code 本地 npx 方式
 
 也可以通过本地 `npx` 启动 Firecrawl MCP Server：
 
@@ -169,7 +185,7 @@ claude mcp add firecrawl --url https://mcp.firecrawl.dev/your-api-key/v2/mcp
 claude mcp add firecrawl -e FIRECRAWL_API_KEY=your-api-key -- npx -y firecrawl-mcp
 ```
 
-### 5.5 CLAUDE.md 中的 Firecrawl 调用规则
+### 6.5 CLAUDE.md 中的 Firecrawl 调用规则
 
 为了让 Claude Code 在网页搜索、网页抓取、网站爬取和内容提取任务中优先使用 Firecrawl，可以在 `CLAUDE.md` 文件中加入以下规则：
 
