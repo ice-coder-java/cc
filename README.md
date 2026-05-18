@@ -4,7 +4,15 @@
 
 Claude Code 是 Anthropic 提供的命令行 AI 编程工具，可以在终端中读取项目文件、执行命令、修改代码，并结合 MCP、Skills、Plugins、Hooks 等机制扩展能力。
 
-本次暂不记录 Claude Code 的安装过程，后续可单独补充。
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+在 C 盘下 C:\User\{username}，找到 claude 的 json 配置文件 .claude.json，添加以下配置：
+
+```bash
+"hasCompletedOnboarding": true
+```
 
 ## 2. CC Switch
 
