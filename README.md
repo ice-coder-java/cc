@@ -353,7 +353,7 @@ Please make sure you have the correct access rights
 and the repository exists.
 ```
 
-由于当时是在公司网络环境下操作，所以推测可能和公司内网限制、GitHub 访问策略或终端代理配置有关。
+推测可能网络限制有关。
 
 当时我先执行了以下两条 Git 配置：
 
@@ -418,7 +418,7 @@ Successfully added marketplace: claude-plugins-official
 
 #### 5.1.5 安装后的清理操作
 
-由于上述 Git 代理和地址替换配置是在公司环境下临时设置的，为了避免影响公司内网 Git 仓库、HTTPS 拉取或其他项目配置，安装完成后我将这些临时配置恢复。
+安装完成后若要将这些临时配置恢复。
 
 取消 HTTPS 代理：
 
