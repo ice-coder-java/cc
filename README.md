@@ -364,7 +364,7 @@ git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
 
 这两条命令的作用是：当 Git 遇到 GitHub 的 SSH 地址时，自动替换成 HTTPS 地址。
 
-不过这一步是在我还不完全确定是否为公司内网限制时执行的，不一定是必需步骤。
+不过这一步是在我还不完全确定是否是网络限制的原因时执行的，不一定是必需步骤。
 
 之后我又配置了 Git 的 HTTPS 代理，端口根据自己代理软件的实际端口填写：
 
